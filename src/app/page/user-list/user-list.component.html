@@ -1,0 +1,29 @@
+<div class="container" *ngIf="output$ | async as output">
+    <h1>Users</h1>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of output.data">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <ngb-pagination
+        [page]="output.metadata.page"
+        [pageSize]="output.metadata.itemsPerPage"
+        (pageChange)="pageChanged($event)"
+        [collectionSize]="output.metadata.totalItems"></ngb-pagination>
+  </div>
+  <div *ngIf="isLoading"
+      class="position-fixed d-flex align-items-center justify-content-center w-100 h-100 bg-dark bg-opacity-50 text-white lead fw-bold"
+      style="z-index: 4; top: 0">
+    Loading...
+  </div>
